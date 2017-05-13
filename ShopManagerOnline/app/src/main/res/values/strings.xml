@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Quản Lý Cửa Hàng Online</string>
+    <string name="label_nhaphang">Quản lý nhập hàng</string>
+    <string name="lable_nhacungcap">Quản lý nhà cung cấp</string>
+    <string name="label_sanpham">Quản lý sản phẩm</string>
+    <string name="label_khachhang">Quản lý khách hàng</string>
+    <string name="label_donhang">Quản lý đơn hàng</string>
+    <string name="label_ctv">Quản lý CTV</string>
+    <string name="label_thongke">Xem thông kê</string>
+    <string name="label_nhacnho">Nhắc nhở</string>
+    <string name="label_add_nhacungcap">Thêm mới</string>
+
+</resources>
