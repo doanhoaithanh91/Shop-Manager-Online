@@ -23,7 +23,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/bg_bar"
             android:orientation="horizontal"
             android:textAlignment="center"
             tools:layout_editor_absoluteX="8dp"
@@ -33,7 +33,7 @@
                 android:id="@+id/btn_newprovide_back"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@android:drawable/ic_menu_revert" />
 
@@ -45,7 +45,7 @@
                 android:text="Thông tin nhà cung cấp"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/colorBackground"
+                android:textColor="@color/color_bar"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -53,7 +53,7 @@
                 android:id="@+id/btn_themnhacungcap"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_marginRight="5dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@android:drawable/ic_input_add" />
 
@@ -61,7 +61,7 @@
                 android:id="@+id/btn_capnhatnhacungcap"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_marginRight="5dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@android:drawable/ic_menu_save" />
         </LinearLayout>

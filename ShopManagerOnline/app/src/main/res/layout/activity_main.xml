@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/bg_bar"
             android:orientation="horizontal"
             android:textAlignment="center"
             tools:layout_editor_absoluteX="8dp"
@@ -29,13 +29,14 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:autoText="true"
                 android:text="@string/app_name"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/colorBackground"
+                android:textColor="@color/color_bar"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -43,7 +44,7 @@
                 android:id="@+id/btn_main_info"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_marginRight="5dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@android:drawable/ic_dialog_info" />
         </LinearLayout>
@@ -80,7 +81,7 @@
                         android:layout_margin="10dp"
                         android:paddingTop="15dp"
                         android:text="@string/lable_nhacungcap"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/color_menu"
                         android:textSize="18sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>
@@ -107,7 +108,7 @@
                         android:layout_margin="10dp"
                         android:paddingTop="15dp"
                         android:text="@string/label_sanpham"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/color_menu"
                         android:textSize="18sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>
@@ -134,7 +135,7 @@
                         android:layout_margin="10dp"
                         android:paddingTop="15dp"
                         android:text="@string/label_nhaphang"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/color_menu"
                         android:textSize="18sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>
@@ -161,7 +162,7 @@
                         android:layout_margin="10dp"
                         android:paddingTop="15dp"
                         android:text="@string/label_khachhang"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/color_menu"
                         android:textSize="18sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>
@@ -188,7 +189,7 @@
                         android:layout_margin="10dp"
                         android:paddingTop="15dp"
                         android:text="@string/label_ctv"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/color_menu"
                         android:textSize="18sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>
@@ -215,7 +216,7 @@
                         android:layout_margin="10dp"
                         android:paddingTop="15dp"
                         android:text="@string/label_donhang"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/color_menu"
                         android:textSize="18sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>
@@ -242,7 +243,7 @@
                         android:layout_margin="10dp"
                         android:paddingTop="15dp"
                         android:text="@string/label_thongke"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/color_menu"
                         android:textSize="18sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>
@@ -269,7 +270,7 @@
                         android:layout_margin="10dp"
                         android:paddingTop="15dp"
                         android:text="@string/label_nhacnho"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/color_menu"
                         android:textSize="18sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>

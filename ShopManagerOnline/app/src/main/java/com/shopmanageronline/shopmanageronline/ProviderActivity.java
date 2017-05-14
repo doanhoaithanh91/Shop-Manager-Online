@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.shopmanageronline.shopmanageronline.adapter.ProviderAdapter;
 import com.shopmanageronline.shopmanageronline.entity.Provider;
 import com.shopmanageronline.shopmanageronline.helper.DBManager;
 
@@ -96,8 +97,8 @@ public class ProviderActivity extends AppCompatActivity {
 
     private void reloadListView() {
         providers = dbManager.getAllProviders();
-        ArrayAdapter<Provider> arrayAdapter = new ArrayAdapter(this, R.layout.listview_item, R.id.textView1, this.providers);
-        listView.setAdapter(arrayAdapter);
+        ProviderAdapter providerAdapter = new ProviderAdapter(this, R.layout.listview_item, providers);
+        listView.setAdapter(providerAdapter);
     }
 
     @Override
