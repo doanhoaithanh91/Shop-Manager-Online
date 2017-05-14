@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.shopmanageronline.shopmanageronline.entity.Provider;
 import com.shopmanageronline.shopmanageronline.helper.DBManager;
@@ -18,37 +19,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProviderActivity extends AppCompatActivity {
-    private Button btnAdd;
-    private static ListView listView;
+    private View viewAdd;
+    private View btnBack;
+    private ListView listView;
 
-    private static ProviderActivity providerActivity;
-    private static DBManager dbManager;
-    private static List<Provider> providers;
+    private DBManager dbManager;
+    private List<Provider> providers;
+    private ProviderActivity context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider);
-        providerActivity = this;
-        setTitle(R.string.lable_nhacungcap);
 
-        dbManager = new DBManager(this);
-        dbManager.open();
+        btnBack = (View) findViewById(R.id.btn_provide_back);
+        btnBack.setOnClickListener(backOnClickListener);
 
-        btnAdd = (Button) findViewById(R.id.btn_add_nhacungcap);
-        btnAdd.setOnClickListener(addButtonOnClickListener);
+        viewAdd = (View) findViewById(R.id.btn_provide_add);
+        viewAdd.setOnClickListener(addButtonOnClickListener);
 
         listView = (ListView) findViewById(R.id.lv_nhacungcap);
-        setListViewAdapter();
         listView.setOnItemClickListener(listViewOnItemClickListener);
         listView.setOnItemLongClickListener(listViewOnItemLongClickListener);
     }
 
-    public static void setListViewAdapter() {
-        providers = dbManager.getAllProviders();
-        ArrayAdapter<Provider> arrayAdapter = new ArrayAdapter(providerActivity, R.layout.listview_item, R.id.textView1, providers);
-        listView.setAdapter(arrayAdapter);
-    }
+    View.OnClickListener backOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            finish();
+        }
+    };
 
     View.OnClickListener addButtonOnClickListener = new View.OnClickListener() {
         @Override
@@ -72,14 +72,14 @@ public class ProviderActivity extends AppCompatActivity {
     AdapterView.OnItemLongClickListener listViewOnItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(providerActivity);
+            AlertDialog.Builder alert = new AlertDialog.Builder(context);
             alert.setTitle("Cảnh báo !!!");
             alert.setMessage("Bạn có thật sự muốn xóa không?");
             alert.setPositiveButton("Vâng", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dbManager.deleteProvider(providers.get(position).getId());
-                    setListViewAdapter();
+                    reloadListView();
                     dialog.dismiss();
                 }
             });
@@ -94,15 +94,26 @@ public class ProviderActivity extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onResume() {
-        dbManager.open();
-        super.onResume();
+    private void reloadListView() {
+        providers = dbManager.getAllProviders();
+        ArrayAdapter<Provider> arrayAdapter = new ArrayAdapter(this, R.layout.listview_item, R.id.textView1, this.providers);
+        listView.setAdapter(arrayAdapter);
     }
 
     @Override
-    protected void onPause() {
+    protected void onStart() {
+        context = this;
+
+        dbManager = new DBManager(this);
+        dbManager.open();
+        reloadListView();
+
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
         dbManager.close();
-        super.onPause();
+        super.onStop();
     }
 }

@@ -71,4 +71,15 @@ public class DBManager {
         provider.setNote(cursor.getString(5));
         return provider;
     }
+
+    public int update(Provider provider) {
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.PROVIDER_COLUMN_NAME, provider.getName());
+        values.put(DBHelper.PROVIDER_COLUMN_PHONE, provider.getPhone());
+        values.put(DBHelper.PROVIDER_COLUMN_EMAIL, provider.getEmail());
+        values.put(DBHelper.PROVIDER_COLUMN_ADDRESS, provider.getAddress());
+        values.put(DBHelper.PROVIDER_COLUMN_NOTE, provider.getNote());
+
+        return db.update(DBHelper.TABLE_PROVIDER, values, DBHelper.PROVIDER_COLUMN_ID + "=" + provider.getId(), null);
+    }
 }

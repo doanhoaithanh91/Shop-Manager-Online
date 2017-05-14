@@ -23,18 +23,16 @@ public class NewProviderActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextAddress;
     private EditText editTextNote;
-    private Button btnUpdateProvider;
+    private View btnAddProvider;
+    private View btnUpdateProvider;
+    private View btnBack;
 
-    private Provider providerUpdate;
-    private NewProviderActivity newProviderActivity;
     private DBManager dbManager;
-    List<Provider> providers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_provider);
-        setTitle(R.string.label_add_nhacungcap);
 
         editTextName = (EditText) findViewById(R.id.ed_tennhaccungcap);
         editTextPhone = (EditText) findViewById(R.id.ed_dtnhacungcap);
@@ -42,36 +40,24 @@ public class NewProviderActivity extends AppCompatActivity {
         editTextAddress = (EditText) findViewById(R.id.ed_diachinhacungcap);
         editTextNote = (EditText) findViewById(R.id.ed_notenhacungcap);
 
-        extraDataHandle(providers);
+        btnBack = (View) findViewById(R.id.btn_newprovide_back);
+        btnBack.setOnClickListener(backOnClickListener);
 
-        btnUpdateProvider = (Button) findViewById(R.id.btn_capnhatnhacungcap);
+        btnAddProvider = (View) findViewById(R.id.btn_themnhacungcap);
+        btnAddProvider.setOnClickListener(addButtonOnClickListener);
+
+        btnUpdateProvider = (View) findViewById(R.id.btn_capnhatnhacungcap);
         btnUpdateProvider.setOnClickListener(updateButtonOnClickListener);
     }
 
-    private void extraDataHandle(List<Provider> providers) {
-        dbManager = new DBManager(this);
-        dbManager.open();
-        providers = dbManager.getAllProviders();
-
-        if (getIntent().hasExtra("id")) {
-            for (Provider provider : providers) {
-                if (provider.getId() == getIntent().getExtras().getLong("id")) {
-                    providerUpdate = provider;
-                    break;
-                }
-            }
-
-            if (providerUpdate != null) {
-                editTextName.setText(providerUpdate.getName());
-                editTextPhone.setText(providerUpdate.getPhone());
-                editTextEmail.setText(providerUpdate.getEmail());
-                editTextAddress.setText(providerUpdate.getAddress());
-                editTextNote.setText(providerUpdate.getNote());
-            }
+    View.OnClickListener backOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            finish();
         }
-    }
+    };
 
-    View.OnClickListener updateButtonOnClickListener = new View.OnClickListener() {
+    View.OnClickListener addButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Provider provider = new Provider();
@@ -81,14 +67,61 @@ public class NewProviderActivity extends AppCompatActivity {
             provider.setAddress(editTextAddress.getText().toString());
             provider.setNote(editTextNote.getText().toString());
 
-            if (providerUpdate != null) {
-                dbManager.deleteProvider(providerUpdate.getId());
-            }
-
             dbManager.create(provider);
 
-            ProviderActivity.setListViewAdapter();
             finish();
         }
     };
+
+    View.OnClickListener updateButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Provider provider = new Provider();
+            provider.setId(getIntent().getExtras().getLong("id"));
+            provider.setName(editTextName.getText().toString());
+            provider.setPhone(editTextPhone.getText().toString());
+            provider.setEmail(editTextEmail.getText().toString());
+            provider.setAddress(editTextAddress.getText().toString());
+            provider.setNote(editTextNote.getText().toString());
+
+            dbManager.update(provider);
+
+            finish();
+        }
+    };
+
+    private void setVisibilityButton() {
+        if (getIntent().hasExtra("id")) {
+            btnAddProvider.setVisibility(View.GONE);
+            btnUpdateProvider.setVisibility(View.VISIBLE);
+
+            for (Provider  provider : dbManager.getAllProviders()) {
+
+                editTextName.setText(provider.getName());
+                editTextPhone.setText(provider.getPhone());
+                editTextEmail.setText(provider.getEmail());
+                editTextAddress.setText(provider.getAddress());
+                editTextNote.setText(provider.getNote());
+            }
+        } else {
+            btnUpdateProvider.setVisibility(View.GONE);
+            btnAddProvider.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        dbManager = new DBManager(this);
+        dbManager.open();
+
+        setVisibilityButton();
+
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        dbManager.close();
+        super.onStop();
+    }
 }
